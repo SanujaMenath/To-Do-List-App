@@ -4,23 +4,28 @@
     android:layout_height="match_parent">
 
     <EditText
+        android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_text"
+        android:hint="@string/enter_new_task"
         android:paddingStart="7dp"
-        android:hint="Enter New Task"
-        android:paddingEnd="7dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_below="@id/edit_text"
-        android:text="Save"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button_save"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"/>
+        android:paddingEnd="7dp"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:autofillHints="username"
+        android:background="@color/white"
+    android:textColor="@color/black" />
 
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@id/edit_text"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 </RelativeLayout>

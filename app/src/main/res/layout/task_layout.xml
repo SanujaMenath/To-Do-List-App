@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/primaryColor"
-            android:id="@+id/checkbox"
+            android:id="@+id/mcheckbox"
             android:text="This is task 01"
             android:paddingStart="8dp" />
 

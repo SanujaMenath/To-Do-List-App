@@ -2,12 +2,16 @@ package com.example.myfirstapp.Utils;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
 import com.example.myfirstapp.Model.ToDoModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -47,6 +51,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COL_2, task);
         db.update(TABLE_NAME, values, "ID=?", new String[]{String.valueOf(id)});
+    }
 
+    public void deleteTask (int id){
+        db = this.getWritableDatabase();
+        db.delete(TABLE_NAME , "ID=?",  new String[]{String.valueOf(id)});
+    }
+
+    public void updateStatus(int id,int status){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+    }
+
+    public List<ToDoModel> getAllTasks(){
+        db = this.getWritableDatabase();
+        Cursor cursor =null;
+        List<ToDoModel> modelList = new ArrayList<>();
+
+         db.beginTransaction();
+         try {
+             cursor = db.query(TABLE_NAME , null , null , null , null ,null ,null);
+             if(cursor != null){
+                 if (cursor.moveToFirst()){
+                     do {
+                         ToDoModel task = new ToDoModel();
+                         int idIndex = cursor.getColumnIndex(COL_1);
+                         int taskIndex = cursor.getColumnIndex(COL_2);
+                         int statusIndex = cursor.getColumnIndex(COL_3);
+
+                         if (idIndex != -1) {
+                             task.setId(cursor.getInt(idIndex));
+                         }
+                         if (taskIndex != -1) {
+                             task.setTask(cursor.getString(taskIndex));
+                         }
+                         if (statusIndex != -1) {
+                             task.setStatus(cursor.getInt(statusIndex));
+                         }
+                         modelList.add(task);
+                     }while (cursor.moveToNext());
+
+                 }
+             }
+         }finally {
+             db.endTransaction();
+             cursor.close();
+         }
+         return modelList;
     }
 }
